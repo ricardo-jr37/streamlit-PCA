@@ -44,7 +44,7 @@ st.markdown(filedownload(df), unsafe_allow_html=True)
 #Mapa de calor
 if st.button('Mapa de Calor'):
     st.header('Mapa de calor de correlação dos dados')
-    st.write('Por esse mapa de calor a gente ver com as variáveis se relacionam entre si.')
+    st.write('Por esse mapa de calor a gente consegue visualizar como as variáveis se relacionam entre si e as dependências lineares.')
     corr = df.drop(columns=[1]).corr()
     mask = np.zeros_like(corr)
     mask [np.triu_indices_from(mask)] = True
@@ -117,13 +117,14 @@ knn.fit(x_train, y_train)
 y_pred = knn.predict(x_test)
 
 #Import scikit-learn metrics module for accuracy calculation
+
 from sklearn import metrics
 # Model Accuracy, how often is the classifier correct
 st.header('Criando um modelo usando PCA')
 st.write("""
-Para fins didáticos você pode passar alguns parâmetros para criarmos um modelo de machine learning. Você pode passar o número de componentes principais, a fim de visualizar como o número de dimensões pode afetar a criação do nosso modelo. Além disso, vamos usar o algoritmo K-Nearest Neighbors(KNN) para criarmos o nosso modelo, assim, pode definir o número de vizinhos mais próximos que o algoritmo tem que usar para criar um modelo para as componentes principais e o dataset original. Assim, vamos comparar as acurácias entre as componentes principais e o dataset original. 
+Para fins didáticos, você pode passar alguns parâmetros para criarmos um modelo de machine learning. Você pode passar o número de componentes principais, a fim de visualizar como o número de dimensões pode afetar a criação do nosso modelo. Além disso, vamos usar o algoritmo K-Nearest Neighbors(KNN) para criarmos o nosso modelo, assim, pode definir o número de vizinhos mais próximos que o algoritmo tem que usar para criar um modelo para as componentes principais e o dataset original. Assim, vamos comparar a precisão de classificar um vinho entre as componentes principais e o dataset original. 
 """)
-st.subheader('Performance do dataset usando {} Componentes Principais'.format(num_pcs))
+st.subheader('Performance do dataset usando {} Componentes Principais e {} vizinhos mais próximos\n'.format(num_pcs, num_vizinho))
 st.write("Acurácia: ",metrics.accuracy_score(y_test, y_pred))
 
 #dataset original
@@ -135,5 +136,5 @@ knn2 = KNeighborsClassifier(n_neighbors=num_vizinho)
 knn2.fit(x_train2, y_train2)
 #Predict the response for test dataset
 y_pred2 = knn2.predict(x_test2)
-st.subheader('Performance do dataset original usando {} vizinhos'.format(num_vizinho))
+st.subheader('Performance do dataset original usando {} vizinhos mais próximos\n'.format(num_vizinho))
 st.write("Acurácia: ",metrics.accuracy_score(y_test2, y_pred2))
